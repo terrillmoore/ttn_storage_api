@@ -48,8 +48,12 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 
 	ttn_version should be 2 or 3; 3 is default.
 
-	If data_folder is supplied, it is a string or a Path; the name "
-	The data is returned as a string. Use json.loads() to decode into an object.
+	If data_folder is supplied, it is a string or a Path; it is taken as a directory,
+	and the name "sensors_lastperiod.json" is appended to form an output file name, and
+	the data is written to the resulting file, replacing any previous contents.
+
+	Otherwise, the data is returned as a Python array (for V3) or a string (for V2).
+	We've not really tested V2 extensively.
 	"""
 	args = [ "curl" ]
 	if ttn_version == 2:
