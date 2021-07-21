@@ -1,5 +1,5 @@
 #
-# Name: fetch.py
+# Name: ttn_storage_api.py
 #
 # Function:
 #	Fetch data from TTN, via storage API
@@ -8,8 +8,8 @@
 #	Terry Moore, MCCI
 #
 # Use:
-#	import fetch
-#	fetch.sensor_pull_storage(...) -- see docs for args
+#	import ttn_storage_api
+#	ttn_storage_api.sensor_pull_storage(...) -- see docs for args
 #
 #	Or just cut/paste into your script.
 #
@@ -36,15 +36,15 @@ class FetchError(Error):
 
 def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, ttn_version=3):
 	"""
-	Pull data from TTN via the storage API.
+	Pull data from TTN via the TTN storage API.
 
 	appname is the name of the TTN app
 
 	accesskey is the full accesskey from ttn.  For TTN V3, this is is the
-		secret output when a kye is created. For TTN V2, this is
+		secret that is output when a key is created. For TTN V2, this is
 		the string from the console, starting with 'ttn-acount-v2.'
 
-	timestring indicates amount of data needed, e.g. '1d'.
+	timestring indicates amount of data needed, e.g. '100h'.
 
 	ttn_version should be 2 or 3; 3 is default.
 
