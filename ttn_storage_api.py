@@ -27,8 +27,10 @@ class FetchError(Error):
 	"""Raised when sensor_pull_storage can't deal with input
 
 	Atrributes:
-	   expression -- input expression where error occurred
-	   message -- explanation of the error.
+	   expression -- input expression where error occurred. This
+		will include the values that were erroneous.
+	   message -- explanation of the error. This is a constant
+		string.
 	"""
 	def __init__(self, expression, message):
 		self.expression = expression
@@ -72,15 +74,23 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 			"-d", "field_mask=up.uplink_message.decoded_payload",
 		]
 	else:
-		raise FetchError(f"Illegal ttn_version (not 2 or 3)")
+		raise FetchError(f"ttn_version={ttn_version}", f"Illegal ttn_version (not 2 or 3)")
 
 
-	# if the user supplied a data_folder, than tack on the args.
-	# list1 += list2 syntax means "append each element of list2 to list 1"
-	# pathlib.Path allows 
+	# if the user supplied a data_folder, then we want to output to a file.
 	if data_folder != None:
-		args += [ "-o", pathlib.Path(data_folder, "sensors_lastperiod.json") ]
+		tFolder = pathlib.Path(data_folder)
+		if not tFolder.is_dir():
+			raise FetchError(f"data_folder={data_folder}", f"not a directory")
+		# Update the arguments to curl.
+		# list1 += list2 syntax means "append each element of list2 to list 1"
+		# pathlib.Path with two args constructs path from elements
+		# curl ... -o outputs to a file, not to stdout.
+		# We need to turn the result back to a string explicitly, so we
+		# can append to args.
+		args += [ "-o", str(pathlib.Path(tFolder, "sensors_lastperiod.json")) ]
 
+	# run the curl command to get the data.
 	result = subprocess.run( 
 		args, shell=False, check=True, capture_output=True
 		)
