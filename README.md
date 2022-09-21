@@ -95,6 +95,6 @@ This repository is released under the MIT license.
 
 ### Support Open Source Hardware and Software
 
-MCCI invests time and resources providing this open source code, please support MCCI and open-source hardware by purchasing products from MCCI\ and other open-source hardware/software vendors!
+MCCI invests time and resources providing this open source code, please support MCCI and open-source hardware by purchasing products from MCCI and other open-source hardware/software vendors!
 
 For information about MCCI's products, please visit [store.mcci.com](https://store.mcci.com/).
