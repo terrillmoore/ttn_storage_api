@@ -82,6 +82,12 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 		tFolder = pathlib.Path(data_folder)
 		if not tFolder.is_dir():
 			raise FetchError(f"data_folder={data_folder}", f"not a directory")
+		# Update the arguments to curl.
+		# list1 += list2 syntax means "append each element of list2 to list 1"
+		# pathlib.Path with two args constructs path from elements
+		# curl ... -o outputs to a file, not to stdout.
+		# We need to turn the result back to a string explicitly, so we
+		# can append to args.
 		args += [ "-o", str(pathlib.Path(tFolder, "sensors_lastperiod.json")) ]
 
 	# run the curl command to get the data.
