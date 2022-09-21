@@ -74,7 +74,7 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 			"-d", "field_mask=up.uplink_message.decoded_payload",
 		]
 	else:
-		raise FetchError(f"Illegal ttn_version (not 2 or 3)")
+		raise FetchError(f"ttn_version={ttn_version}", f"Illegal ttn_version (not 2 or 3)")
 
 
 	# if the user supplied a data_folder, than tack on the args.
