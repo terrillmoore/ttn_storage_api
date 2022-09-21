@@ -79,7 +79,7 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 	# list1 += list2 syntax means "append each element of list2 to list 1"
 	# pathlib.Path allows 
 	if data_folder != None:
-		args += [ "-o", pathlib.Path(data_folder, "sensors_lastperiod.json") ]
+		args += [ "-o", str(pathlib.Path(data_folder, "sensors_lastperiod.json")) ]
 
 	result = subprocess.run( 
 		args, shell=False, check=True, capture_output=True
