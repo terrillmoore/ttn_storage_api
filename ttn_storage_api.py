@@ -79,7 +79,10 @@ def sensor_pull_storage(appname, accesskey, timestring, *,data_folder = None, tt
 
 	# if the user supplied a data_folder, then we want to output to a file.
 	if data_folder != None:
-		args += [ "-o", str(pathlib.Path(data_folder, "sensors_lastperiod.json")) ]
+		tFolder = pathlib.Path(data_folder)
+		if not tFolder.is_dir():
+			raise FetchError(f"data_folder={data_folder}", f"not a directory")
+		args += [ "-o", str(pathlib.Path(tFolder, "sensors_lastperiod.json")) ]
 
 	# run the curl command to get the data.
 	result = subprocess.run( 
