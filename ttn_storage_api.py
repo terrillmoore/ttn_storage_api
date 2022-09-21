@@ -27,8 +27,10 @@ class FetchError(Error):
 	"""Raised when sensor_pull_storage can't deal with input
 
 	Atrributes:
-	   expression -- input expression where error occurred
-	   message -- explanation of the error.
+	   expression -- input expression where error occurred. This
+		will include the values that were erroneous.
+	   message -- explanation of the error. This is a constant
+		string.
 	"""
 	def __init__(self, expression, message):
 		self.expression = expression
